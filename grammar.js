@@ -62,11 +62,25 @@ module.exports = grammar({
       $.string,
       $.call,
       $.paren_expression,
+      $.array_expression,
+    ),
+
+    _block: $ => seq(
+      $.indent,
+      repeat1(choice($._simple_statement, $.multiline_comment)),
+      $.dedent,
     ),
 
     _primary_expressions: $ => sep1(
       $._primary_expression,
       '||',
+    ),
+
+    array_expression: $ => seq(
+      field('variable', $.identifier),
+      '[',
+      field('index', $._primary_expression),
+      ']',
     ),
 
     call: $ => prec(PREC.call, seq(
@@ -125,9 +139,13 @@ module.exports = grammar({
     _simple_statement: $ => seq(
       choice(
         $.if_statement,
+        $.loop,
+        $.while,
         $.explicit_call,
         $.assignment,
         $.select_case_statement,
+        $.return_statement,
+        $.break
       ),
     ),
 
@@ -135,30 +153,52 @@ module.exports = grammar({
       'Select',
       'Case',
       field('selector', $.expression),
-      repeat(
+      $.indent,
+      repeat1(
         choice(
           $.select_case,
           $.default_case,
-        )
-      )
+        ),
+      ),
+      $.dedent,
     ),
 
     select_case: $ => seq(
       'Case',
       field('case', $.expression),
+      $.indent,
       repeat($._simple_statement),
-      field('break', $.break),
+      $.dedent,
     ),
 
     default_case: $ => seq(
       'Default',
+      $.indent,
       repeat($._simple_statement),
-      field('break', $.break),
+      $.dedent,
     ),
 
     if_statement: $ => seq(
       'If',
       field('condition', $.expression),
+      field('expression', $._block),
+      optional($.else_statement),
+    ),
+
+    loop: $ => seq(
+      'Loop',
+      field('expression', $._block),
+    ),
+
+    while: $ => seq(
+      'While',
+      field('condition', $.expression),
+      field('expression', $._block),
+    ),
+
+    else_statement: $ => seq(
+      'Else',
+      field('expression', $._block),
     ),
 
     explicit_call: $ => seq(
@@ -166,9 +206,14 @@ module.exports = grammar({
       $.call,
     ),
 
+    return_statement: $ => seq(
+      'Return',
+      optional($.expression),
+    ),
+
     assignment: $ => seq(
       'Set',
-      field('left', $.identifier),
+      field('left', choice($.identifier, $.array_expression)),
       '=',
       field('right', $.expression),
     ),
