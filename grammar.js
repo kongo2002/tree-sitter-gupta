@@ -38,7 +38,7 @@ module.exports = grammar({
   ],
 
   rules: {
-    module: $ => repeat(choice($._simple_statement, $.multiline_comment)),
+    module: $ => repeat(choice($._simple_statement, $.multiline_comment, $.comment)),
 
     paren_expression: $ => prec(PREC.paren_expression, seq(
       '(',
@@ -54,6 +54,7 @@ module.exports = grammar({
     ),
 
     _primary_expression: $ => choice(
+      $.type_name,
       $.identifier,
       $.integer,
       $.float,
@@ -83,10 +84,20 @@ module.exports = grammar({
       ']',
     ),
 
-    call: $ => prec(PREC.call, seq(
-        field('function', $.identifier),
-        field('arguments', $.argument_list),
-      ),
+    call: $ => prec(PREC.call,
+      choice($.member_function, $.function),
+    ),
+
+    member_function: $ => seq(
+      field('class', $.identifier),
+      '.',
+      field('function', $.identifier),
+      field('arguments', $.argument_list),
+    ),
+
+    function: $ => seq(
+      field('function', $.identifier),
+      field('arguments', $.argument_list),
     ),
 
     argument_list: $ => seq(
