@@ -20,7 +20,6 @@ module.exports = grammar({
   word: $ => $.identifier,
 
   extras: $ => [
-    $.comment,
     /[\s\f\uFEFF\u2060\u200B]|\r?\n/,
   ],
 
@@ -45,15 +44,80 @@ module.exports = grammar({
   ],
 
   rules: {
-    module: $ => repeat(choice($._simple_statement, $.multiline_comment, $.comment)),
+    sections: $ => repeat(
+      choice(
+        $.section,
+        $.comment,
+        $.multiline_comment,
+        $.data_block,
+      ),
+    ),
+
+    section: $ => choice(
+      $.action_section,
+      $.description_section,
+      seq(
+        $.section_header,
+        optional(
+          seq(
+            $._indent,
+            repeat1($.section),
+            $._dedent,
+          ),
+        ),
+      ),
+    ),
+
+    declaration_name: $ => alias(
+      seq(
+        $.type_name,
+        repeat(seq(' ', alias($.identifier, 'ident'))),
+      ),
+      'declaration'
+    ),
+
+    section_header: $ => seq(
+      choice(
+        $.section_declaration,
+        $.declaration_name,
+      ),
+      $._newline,
+    ),
+
+    section_declaration: $ => seq(
+      field('type', $.declaration_name),
+      ':',
+      optional(field('name', $.identifier)),
+    ),
+
+    description_section: $ => seq(
+      'Description',
+      ':',
+      alias(token(/.+/), $.text),
+    ),
+
+    action_section: $ => seq(
+      'Actions',
+      $._indent,
+      $.actions,
+      $._dedent,
+    ),
+
+    actions: $ => repeat1(
+      choice(
+        $._simple_statement,
+        $.multiline_comment,
+        $.comment,
+      ),
+    ),
 
     paren_expression: $ => prec(PREC.paren_expression, seq(
       '(',
-      $.expression,
+      $._expression,
       ')',
     )),
 
-    expression: $ => choice(
+    _expression: $ => choice(
       $.not_operator,
       $.boolean_operator,
       $.comparison_operator,
@@ -77,7 +141,7 @@ module.exports = grammar({
 
     _block: $ => seq(
       $._indent,
-      repeat1(choice($._simple_statement, $.multiline_comment)),
+      repeat1(choice($._simple_statement, $.multiline_comment, $.comment)),
       $._dedent,
     ),
 
@@ -113,7 +177,7 @@ module.exports = grammar({
       '(',
       optional(
         commaSep1(
-          $.expression
+          $._expression
         )
       ),
       ')',
@@ -157,22 +221,22 @@ module.exports = grammar({
 
     not_operator: $ => prec(PREC.not, seq(
       'NOT',
-      field('argument', $.expression),
+      field('argument', $._expression),
     )),
 
     boolean_operator: $ => choice(
       prec.left(PREC.and,
         seq(
-          field('left', $.expression),
+          field('left', $._expression),
           field('operator', 'AND'),
-          field('right', $.expression),
+          field('right', $._expression),
         )
       ),
       prec.left(PREC.or,
         seq(
-          field('left', $.expression),
+          field('left', $._expression),
           field('operator', 'OR'),
-          field('right', $.expression),
+          field('right', $._expression),
         )
       ),
     ),
@@ -193,7 +257,7 @@ module.exports = grammar({
     select_case_statement: $ => seq(
       'Select',
       'Case',
-      field('selector', $.expression),
+      field('selector', $._expression),
       $._indent,
       repeat1(
         choice(
@@ -206,7 +270,7 @@ module.exports = grammar({
 
     select_case: $ => seq(
       'Case',
-      field('case', $.expression),
+      field('case', $._expression),
       $._indent,
       repeat($._simple_statement),
       $._dedent,
@@ -221,7 +285,7 @@ module.exports = grammar({
 
     if_statement: $ => seq(
       'If',
-      field('condition', $.expression),
+      field('condition', $._expression),
       field('expression', $._block),
       optional($.else_statement),
     ),
@@ -233,7 +297,7 @@ module.exports = grammar({
 
     while: $ => seq(
       'While',
-      field('condition', $.expression),
+      field('condition', $._expression),
       field('expression', $._block),
     ),
 
@@ -249,14 +313,14 @@ module.exports = grammar({
 
     return_statement: $ => seq(
       'Return',
-      optional($.expression),
+      optional($._expression),
     ),
 
     assignment: $ => seq(
       'Set',
       field('left', choice($.identifier, $.array_expression)),
       '=',
-      field('right', $.expression),
+      field('right', $._expression),
     ),
 
     identifier: _ => /[a-zA-Z][_a-zA-Z0-9]+/,
@@ -317,6 +381,7 @@ module.exports = grammar({
       ));
     },
 
+    // TODO: we still match a "not-equal" (!=) as a comment :/
     comment: _ => token(seq('!', /.*/)),
 
     multiline_comment: $ => seq(
@@ -324,6 +389,13 @@ module.exports = grammar({
       $._indent,
       field('commentblock', repeat1(/.+/)),
       $._dedent,
+    ),
+
+    data_block: $ => seq(
+      '.data',
+      alias($.identifier, 'ident'),
+      field('data', repeat1(/.+/)),
+      '.enddata',
     ),
   }
 });
