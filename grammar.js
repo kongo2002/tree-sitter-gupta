@@ -4,6 +4,13 @@ const PREC = {
   and: 11,
   not: 12,
   compare: 13,
+  bitwise_or: 14,
+  bitwise_and: 15,
+  xor: 16,
+  shift: 17,
+  plus: 18,
+  times: 19,
+  unary: 20,
   call: 22,
 };
 
@@ -18,9 +25,9 @@ module.exports = grammar({
   ],
 
   externals: $ => [
-    $.newline,
-    $.indent,
-    $.dedent,
+    $._newline,
+    $._indent,
+    $._dedent,
     $.string_start,
     $._string_content,
     $.string_end,
@@ -60,6 +67,8 @@ module.exports = grammar({
       $.float,
       $.true,
       $.false,
+      $.unary_operator,
+      $.binary_operator,
       $.string,
       $.call,
       $.paren_expression,
@@ -67,9 +76,9 @@ module.exports = grammar({
     ),
 
     _block: $ => seq(
-      $.indent,
+      $._indent,
       repeat1(choice($._simple_statement, $.multiline_comment)),
-      $.dedent,
+      $._dedent,
     ),
 
     _primary_expressions: $ => sep1(
@@ -125,6 +134,27 @@ module.exports = grammar({
       $._primary_expression,
     )),
 
+    binary_operator: $ => {
+      const table = [
+        [prec.left, '+', PREC.plus],
+        [prec.left, '-', PREC.plus],
+        [prec.left, '*', PREC.times],
+        [prec.left, '/', PREC.times],
+        [prec.left, '%', PREC.times],
+        [prec.left, '|', PREC.bitwise_or],
+        [prec.left, '&', PREC.bitwise_and],
+        [prec.left, '^', PREC.xor],
+        [prec.left, '<<', PREC.shift],
+        [prec.left, '>>', PREC.shift],
+      ];
+
+      return choice(...table.map(([fn, operator, prec]) => fn(prec, seq(
+        field('left', $._primary_expression),
+        field('operator', operator),
+        field('right', $._primary_expression),
+      ))));
+    },
+
     not_operator: $ => prec(PREC.not, seq(
       'NOT',
       field('argument', $.expression),
@@ -164,29 +194,29 @@ module.exports = grammar({
       'Select',
       'Case',
       field('selector', $.expression),
-      $.indent,
+      $._indent,
       repeat1(
         choice(
           $.select_case,
           $.default_case,
         ),
       ),
-      $.dedent,
+      $._dedent,
     ),
 
     select_case: $ => seq(
       'Case',
       field('case', $.expression),
-      $.indent,
+      $._indent,
       repeat($._simple_statement),
-      $.dedent,
+      $._dedent,
     ),
 
     default_case: $ => seq(
       'Default',
-      $.indent,
+      $._indent,
       repeat($._simple_statement),
-      $.dedent,
+      $._dedent,
     ),
 
     if_statement: $ => seq(
@@ -243,6 +273,11 @@ module.exports = grammar({
       $.string_end,
     ),
 
+    unary_operator: $ => prec(PREC.unary, seq(
+      field('operator', choice('+', '-', '~')),
+      field('argument', $._primary_expression),
+    )),
+
     integer: _ => token(choice(
       seq(
         choice('0x', '0X'),
@@ -286,9 +321,9 @@ module.exports = grammar({
 
     multiline_comment: $ => seq(
       $.comment,
-      $.indent,
+      $._indent,
       field('commentblock', repeat1(/.+/)),
-      $.dedent,
+      $._dedent,
     ),
   }
 });
