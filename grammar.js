@@ -93,8 +93,10 @@ module.exports = grammar({
     section_declaration: $ => seq(
       field('type', $.declaration_name),
       ':',
-      optional(field('name', $.identifier)),
+      optional(field('name', $.section_value)),
     ),
+
+    section_value: _ => token(/[^\r\n]+/),
 
     description_section: $ => seq(
       'Description',
