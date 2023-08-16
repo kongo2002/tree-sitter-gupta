@@ -101,7 +101,29 @@ module.exports = grammar({
     description_section: $ => seq(
       'Description',
       ':',
-      alias(token(/.+/), $.text),
+      field('text', optional($.description_text)),
+    ),
+
+    description_text: $ => seq(
+      /[^\r\n]+/,
+      optional(
+        seq(
+          $._indent,
+          $._description_block,
+          $._dedent,
+        ),
+      ),
+    ),
+
+    _description_block: $ => repeat1(
+      choice(
+        /.+/,
+        seq(
+          $._indent,
+          $._description_block,
+          $._dedent,
+        ),
+      ),
     ),
 
     action_section: $ => seq(
