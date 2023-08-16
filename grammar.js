@@ -61,11 +61,17 @@ module.exports = grammar({
         optional(
           seq(
             $._indent,
-            repeat1($.section),
+            repeat1($._section_content),
             $._dedent,
           ),
         ),
       ),
+    ),
+
+    _section_content: $ => choice(
+      $.section,
+      $.comment,
+      $.multiline_comment,
     ),
 
     declaration_name: $ => alias(
@@ -97,7 +103,12 @@ module.exports = grammar({
     ),
 
     action_section: $ => seq(
-      'Actions',
+      field('type',
+        seq(
+          optional('Message'),
+          'Actions',
+        ),
+      ),
       $._indent,
       $.actions,
       $._dedent,
@@ -333,9 +344,26 @@ module.exports = grammar({
 
     string: $ => seq(
       $.string_start,
-      repeat($._string_content),
+      repeat($.string_content),
       $.string_end,
     ),
+
+    string_content: $ => prec.right(repeat1(
+      choice(
+        $.escape_sequence,
+        $._not_escape_sequence,
+        $._string_content,
+      ))),
+
+    escape_sequence: _ => token.immediate(prec(1, seq(
+      '\\',
+      choice(
+        /\r?\n/,
+        /['"abfrntv\\]/,
+      ),
+    ))),
+
+    _not_escape_sequence: _ => token.immediate('\\'),
 
     unary_operator: $ => prec(PREC.unary, seq(
       field('operator', choice('+', '-', '~')),
