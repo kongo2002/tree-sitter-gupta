@@ -279,6 +279,7 @@ module.exports = grammar({
     _simple_statement: $ => seq(
       choice(
         $.if_statement,
+        $.on_statement,
         $.loop,
         $.while,
         $.explicit_call,
@@ -323,6 +324,12 @@ module.exports = grammar({
       field('condition', $._expression),
       field('expression', $._block),
       optional($.else_statement),
+    ),
+
+    on_statement: $ => seq(
+      'On',
+      field('condition', $._expression),
+      field('expression', $._block),
     ),
 
     loop: $ => seq(
