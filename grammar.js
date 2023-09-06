@@ -422,6 +422,7 @@ module.exports = grammar({
         choice(
           optional(/[Ll]/), // long numbers
           optional(/[jJ]/), // complex numbers
+          optional(/['"]/), // unit
         ),
       ),
     )),
@@ -436,7 +437,7 @@ module.exports = grammar({
           seq(optional(digits), '.', digits, optional(exponent)),
           seq(digits, exponent),
         ),
-        optional(choice(/[Ll]/, /[jJ]/)),
+        optional(choice(/[Ll]/, /[jJ]/, /['"]/)),
       ));
     },
 
