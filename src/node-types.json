@@ -50,6 +50,10 @@
           "named": true
         },
         {
+          "type": "else_statement",
+          "named": true
+        },
+        {
           "type": "explicit_call",
           "named": true
         },
@@ -776,6 +780,10 @@
           "named": true
         },
         {
+          "type": "else_statement",
+          "named": true
+        },
+        {
           "type": "explicit_call",
           "named": true
         },
@@ -845,6 +853,10 @@
           },
           {
             "type": "comment",
+            "named": true
+          },
+          {
+            "type": "else_statement",
             "named": true
           },
           {
@@ -1015,6 +1027,10 @@
             "named": true
           },
           {
+            "type": "else_statement",
+            "named": true
+          },
+          {
             "type": "explicit_call",
             "named": true
           },
@@ -1048,16 +1064,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "else_statement",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1078,6 +1084,10 @@
           },
           {
             "type": "comment",
+            "named": true
+          },
+          {
+            "type": "else_statement",
             "named": true
           },
           {
@@ -1331,6 +1341,10 @@
           },
           {
             "type": "comment",
+            "named": true
+          },
+          {
+            "type": "else_statement",
             "named": true
           },
           {
@@ -1711,6 +1725,10 @@
           "named": true
         },
         {
+          "type": "else_statement",
+          "named": true
+        },
+        {
           "type": "explicit_call",
           "named": true
         },
@@ -2035,6 +2053,10 @@
           },
           {
             "type": "comment",
+            "named": true
+          },
+          {
+            "type": "else_statement",
             "named": true
           },
           {

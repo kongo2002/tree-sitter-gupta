@@ -1132,6 +1132,10 @@
             },
             {
               "type": "SYMBOL",
+              "name": "else_statement"
+            },
+            {
+              "type": "SYMBOL",
               "name": "on_statement"
             },
             {
@@ -1289,18 +1293,6 @@
             "type": "SYMBOL",
             "name": "_block"
           }
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "else_statement"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
         }
       ]
     },
