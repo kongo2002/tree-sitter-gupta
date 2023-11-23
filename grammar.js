@@ -43,6 +43,10 @@ module.exports = grammar({
     ')',
   ],
 
+  inline: $ => [
+    $.section_header,
+  ],
+
   rules: {
     sections: $ => repeat(
       choice(
@@ -74,10 +78,15 @@ module.exports = grammar({
       $.multiline_comment,
     ),
 
+    declaration_ident: $ => choice(
+      $.type_name,
+      'Date/Time',
+    ),
+
     declaration_name: $ => alias(
       seq(
-        $.type_name,
-        repeat(seq(' ', alias($.identifier, 'ident'))),
+        $.declaration_ident,
+        repeat(seq(' ', alias(choice($.declaration_ident, $.identifier), 'ident'))),
       ),
       'declaration'
     ),
@@ -86,6 +95,7 @@ module.exports = grammar({
       choice(
         $.section_declaration,
         $.declaration_name,
+        $.section_toggle,
       ),
       $._newline,
     ),
@@ -95,6 +105,17 @@ module.exports = grammar({
       ':',
       optional(field('name', $.section_value)),
     ),
+
+    section_toggle: $ => seq(
+      field('type', $.declaration_name),
+      '?',
+      field('value', $.toggle_value),
+    ),
+
+    toggle_value: _ => token(choice(
+      'Yes',
+      'No',
+    )),
 
     section_value: _ => token(/[^\r\n]+/),
 
@@ -441,8 +462,14 @@ module.exports = grammar({
       ));
     },
 
-    // TODO: we still match a "not-equal" (!=) as a comment :/
-    comment: _ => token(seq('!', /.*/)),
+    // not very sophisticated but kind of works...
+    // we don't want to match a literal '!=' as a comment
+    comment: _ => token(
+      seq(
+        '!',
+        optional(/[^=\r\n].*/),
+      )
+    ),
 
     multiline_comment: $ => seq(
       $.comment,
