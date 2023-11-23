@@ -183,6 +183,13 @@
           "value": ":"
         },
         {
+          "type": "REPEAT",
+          "content": {
+            "type": "STRING",
+            "value": " "
+          }
+        },
+        {
           "type": "CHOICE",
           "members": [
             {

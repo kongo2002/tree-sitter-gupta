@@ -98,6 +98,7 @@ module.exports = grammar({
     section_declaration: $ => seq(
       field('type', $.declaration_name),
       ':',
+      repeat(' '),
       optional(field('name', $.section_value)),
     ),
 
