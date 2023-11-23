@@ -62,7 +62,7 @@ module.exports = grammar({
       $.description_section,
       seq(
         $.section_header,
-        optional(
+        repeat(
           seq(
             $._indent,
             repeat1($._section_content),

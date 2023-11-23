@@ -45,32 +45,27 @@
               "name": "section_header"
             },
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SEQ",
-                  "members": [
-                    {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_indent"
+                  },
+                  {
+                    "type": "REPEAT1",
+                    "content": {
                       "type": "SYMBOL",
-                      "name": "_indent"
-                    },
-                    {
-                      "type": "REPEAT1",
-                      "content": {
-                        "type": "SYMBOL",
-                        "name": "_section_content"
-                      }
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "_dedent"
+                      "name": "_section_content"
                     }
-                  ]
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_dedent"
+                  }
+                ]
+              }
             }
           ]
         }
