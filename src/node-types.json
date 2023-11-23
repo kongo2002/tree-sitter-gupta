@@ -756,17 +756,7 @@
   {
     "type": "declaration",
     "named": false,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "type_name",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "declaration_name",
@@ -944,21 +934,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "ident",
-    "named": false,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "type_name",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1928,6 +1903,11 @@
     }
   },
   {
+    "type": "toggle_value",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "unary_operator",
     "named": true,
     "fields": {
@@ -2004,6 +1984,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "value",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "while",
@@ -2244,10 +2229,6 @@
     "named": false
   },
   {
-    "type": "Date/Time",
-    "named": false
-  },
-  {
     "type": "Default",
     "named": false
   },
@@ -2320,6 +2301,10 @@
     "named": true
   },
   {
+    "type": "declaration",
+    "named": false
+  },
+  {
     "type": "escape_sequence",
     "named": true
   },
@@ -2352,16 +2337,16 @@
     "named": true
   },
   {
-    "type": "toggle_value",
-    "named": true
-  },
-  {
     "type": "true",
     "named": true
   },
   {
     "type": "type_name",
     "named": true
+  },
+  {
+    "type": "value",
+    "named": false
   },
   {
     "type": "|",

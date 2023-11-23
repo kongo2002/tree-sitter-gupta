@@ -78,15 +78,10 @@ module.exports = grammar({
       $.multiline_comment,
     ),
 
-    declaration_ident: $ => choice(
-      $.type_name,
-      'Date/Time',
-    ),
-
     declaration_name: $ => alias(
       seq(
-        $.declaration_ident,
-        repeat(seq(' ', alias(choice($.declaration_ident, $.identifier), 'ident'))),
+        $.type_name,
+        repeat(seq(choice(' ', '/'), alias(choice($.type_name, $.identifier), 'ident'))),
       ),
       'declaration'
     ),
@@ -112,10 +107,13 @@ module.exports = grammar({
       field('value', $.toggle_value),
     ),
 
-    toggle_value: _ => token(choice(
-      'Yes',
-      'No',
-    )),
+    toggle_value: $ => alias(
+      seq(
+        $.type_name,
+        repeat(seq(' ', alias($.type_name, 'value'))),
+      ),
+      'value',
+    ),
 
     section_value: _ => token(/[^\r\n]+/),
 

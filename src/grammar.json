@@ -93,19 +93,6 @@
         }
       ]
     },
-    "declaration_ident": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "type_name"
-        },
-        {
-          "type": "STRING",
-          "value": "Date/Time"
-        }
-      ]
-    },
     "declaration_name": {
       "type": "ALIAS",
       "content": {
@@ -113,7 +100,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "declaration_ident"
+            "name": "type_name"
           },
           {
             "type": "REPEAT",
@@ -121,8 +108,17 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": " "
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": " "
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "/"
+                    }
+                  ]
                 },
                 {
                   "type": "ALIAS",
@@ -131,7 +127,7 @@
                     "members": [
                       {
                         "type": "SYMBOL",
-                        "name": "declaration_ident"
+                        "name": "type_name"
                       },
                       {
                         "type": "SYMBOL",
@@ -235,20 +231,39 @@
       ]
     },
     "toggle_value": {
-      "type": "TOKEN",
+      "type": "ALIAS",
       "content": {
-        "type": "CHOICE",
+        "type": "SEQ",
         "members": [
           {
-            "type": "STRING",
-            "value": "Yes"
+            "type": "SYMBOL",
+            "name": "type_name"
           },
           {
-            "type": "STRING",
-            "value": "No"
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": " "
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "type_name"
+                  },
+                  "named": false,
+                  "value": "value"
+                }
+              ]
+            }
           }
         ]
-      }
+      },
+      "named": false,
+      "value": "value"
     },
     "section_value": {
       "type": "TOKEN",
