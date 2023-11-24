@@ -1216,6 +1216,10 @@
             },
             {
               "type": "SYMBOL",
+              "name": "else_if_statement"
+            },
+            {
+              "type": "SYMBOL",
               "name": "else_statement"
             },
             {
@@ -1344,6 +1348,35 @@
     "if_statement": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "STRING",
+          "value": "If"
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "expression",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_block"
+          }
+        }
+      ]
+    },
+    "else_if_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "Else"
+        },
         {
           "type": "STRING",
           "value": "If"

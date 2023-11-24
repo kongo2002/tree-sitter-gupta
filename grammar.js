@@ -299,6 +299,7 @@ module.exports = grammar({
     _simple_statement: $ => seq(
       choice(
         $.if_statement,
+        $.else_if_statement,
         $.else_statement,
         $.on_statement,
         $.loop,
@@ -340,6 +341,12 @@ module.exports = grammar({
 
     if_statement: $ => seq(
       'If',
+      field('condition', $._expression),
+      field('expression', $._block),
+    ),
+
+    else_if_statement: $ => seq(
+      'Else', 'If',
       field('condition', $._expression),
       field('expression', $._block),
     ),

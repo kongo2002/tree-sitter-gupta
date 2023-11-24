@@ -50,6 +50,10 @@
           "named": true
         },
         {
+          "type": "else_if_statement",
+          "named": true
+        },
+        {
           "type": "else_statement",
           "named": true
         },
@@ -784,6 +788,10 @@
           "named": true
         },
         {
+          "type": "else_if_statement",
+          "named": true
+        },
+        {
           "type": "else_statement",
           "named": true
         },
@@ -844,6 +852,140 @@
     "fields": {}
   },
   {
+    "type": "else_if_statement",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "array_expression",
+            "named": true
+          },
+          {
+            "type": "binary_operator",
+            "named": true
+          },
+          {
+            "type": "boolean_operator",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "comparison_operator",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "integer",
+            "named": true
+          },
+          {
+            "type": "not_operator",
+            "named": true
+          },
+          {
+            "type": "paren_expression",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": true
+          },
+          {
+            "type": "type_name",
+            "named": true
+          },
+          {
+            "type": "unary_operator",
+            "named": true
+          },
+          {
+            "type": "||",
+            "named": false
+          }
+        ]
+      },
+      "expression": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "assignment",
+            "named": true
+          },
+          {
+            "type": "break",
+            "named": true
+          },
+          {
+            "type": "comment",
+            "named": true
+          },
+          {
+            "type": "else_if_statement",
+            "named": true
+          },
+          {
+            "type": "else_statement",
+            "named": true
+          },
+          {
+            "type": "explicit_call",
+            "named": true
+          },
+          {
+            "type": "if_statement",
+            "named": true
+          },
+          {
+            "type": "loop",
+            "named": true
+          },
+          {
+            "type": "multiline_comment",
+            "named": true
+          },
+          {
+            "type": "on_statement",
+            "named": true
+          },
+          {
+            "type": "return_statement",
+            "named": true
+          },
+          {
+            "type": "select_case_statement",
+            "named": true
+          },
+          {
+            "type": "while",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "else_statement",
     "named": true,
     "fields": {
@@ -861,6 +1003,10 @@
           },
           {
             "type": "comment",
+            "named": true
+          },
+          {
+            "type": "else_if_statement",
             "named": true
           },
           {
@@ -1035,6 +1181,10 @@
             "named": true
           },
           {
+            "type": "else_if_statement",
+            "named": true
+          },
+          {
             "type": "else_statement",
             "named": true
           },
@@ -1092,6 +1242,10 @@
           },
           {
             "type": "comment",
+            "named": true
+          },
+          {
+            "type": "else_if_statement",
             "named": true
           },
           {
@@ -1349,6 +1503,10 @@
           },
           {
             "type": "comment",
+            "named": true
+          },
+          {
+            "type": "else_if_statement",
             "named": true
           },
           {
@@ -1752,6 +1910,10 @@
           "named": true
         },
         {
+          "type": "else_if_statement",
+          "named": true
+        },
+        {
           "type": "else_statement",
           "named": true
         },
@@ -2102,6 +2264,10 @@
           },
           {
             "type": "comment",
+            "named": true
+          },
+          {
+            "type": "else_if_statement",
             "named": true
           },
           {
