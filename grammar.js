@@ -148,22 +148,14 @@ module.exports = grammar({
 
     action_section: $ => seq(
       field('type',
-        seq(
-          optional('Message'),
+        choice(
           'Actions',
+          'Menu Actions',
+          'Application Actions',
+          'Message Actions',
         ),
       ),
-      $._indent,
-      $.actions,
-      $._dedent,
-    ),
-
-    actions: $ => repeat1(
-      choice(
-        $._simple_statement,
-        $.multiline_comment,
-        $.comment,
-      ),
+      $._block,
     ),
 
     paren_expression: $ => prec(PREC.paren_expression, seq(
@@ -213,18 +205,11 @@ module.exports = grammar({
     ),
 
     call: $ => prec(PREC.call,
-      choice($.member_function, $.function),
-    ),
-
-    member_function: $ => seq(
-      field('class', $.identifier),
-      '.',
-      field('function', $.identifier),
-      field('arguments', $.argument_list),
+      $.function,
     ),
 
     function: $ => seq(
-      field('function', $.identifier),
+      field('function', $.refs),
       field('arguments', $.argument_list),
     ),
 
@@ -383,15 +368,22 @@ module.exports = grammar({
       optional($._expression),
     ),
 
+    ref: $ => alias(
+      choice($.identifier, $.array_expression),
+      'ref'
+    ),
+
+    refs: $ => alias(seq($.ref, repeat(seq('.', $.ref))), 'ref'),
+
     assignment: $ => seq(
       'Set',
-      field('left', choice($.identifier, $.array_expression)),
+      field('left', $.refs),
       '=',
       field('right', $._expression),
     ),
 
-    identifier: _ => /[a-zA-Z][_a-zA-Z0-9]+/,
-    type_name: _ => /[A-Z][_a-zA-Z0-9]+/,
+    identifier: _ => /[a-zA-Z][_a-zA-Z0-9]*/,
+    type_name: _ => /[A-Z][_a-zA-Z0-9]*/,
 
     true: _ => 'TRUE',
     false: _ => 'FALSE',

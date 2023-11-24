@@ -4,7 +4,7 @@
     "named": true,
     "fields": {
       "type": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
@@ -12,30 +12,23 @@
             "named": false
           },
           {
-            "type": "Message",
+            "type": "Application Actions",
+            "named": false
+          },
+          {
+            "type": "Menu Actions",
+            "named": false
+          },
+          {
+            "type": "Message Actions",
             "named": false
           }
         ]
       }
     },
     "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "actions",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "actions",
-    "named": true,
-    "fields": {},
-    "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "assignment",
@@ -242,11 +235,7 @@
         "required": true,
         "types": [
           {
-            "type": "array_expression",
-            "named": true
-          },
-          {
-            "type": "identifier",
+            "type": "refs",
             "named": true
           }
         ]
@@ -653,10 +642,6 @@
       "types": [
         {
           "type": "function",
-          "named": true
-        },
-        {
-          "type": "member_function",
           "named": true
         }
       ]
@@ -1083,7 +1068,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "refs",
             "named": true
           }
         ]
@@ -1282,42 +1267,6 @@
           },
           {
             "type": "while",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "member_function",
-    "named": true,
-    "fields": {
-      "arguments": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "argument_list",
-            "named": true
-          }
-        ]
-      },
-      "class": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "function": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
             "named": true
           }
         ]
@@ -1619,6 +1568,91 @@
         }
       ]
     }
+  },
+  {
+    "type": "ref",
+    "named": false,
+    "fields": {
+      "index": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "array_expression",
+            "named": true
+          },
+          {
+            "type": "binary_operator",
+            "named": true
+          },
+          {
+            "type": "call",
+            "named": true
+          },
+          {
+            "type": "false",
+            "named": true
+          },
+          {
+            "type": "float",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "integer",
+            "named": true
+          },
+          {
+            "type": "paren_expression",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": true
+          },
+          {
+            "type": "type_name",
+            "named": true
+          },
+          {
+            "type": "unary_operator",
+            "named": true
+          }
+        ]
+      },
+      "variable": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ref",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "refs",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "return_statement",
@@ -2411,6 +2445,10 @@
     "named": false
   },
   {
+    "type": "Application Actions",
+    "named": false
+  },
+  {
     "type": "Call",
     "named": false
   },
@@ -2439,7 +2477,11 @@
     "named": false
   },
   {
-    "type": "Message",
+    "type": "Menu Actions",
+    "named": false
+  },
+  {
+    "type": "Message Actions",
     "named": false
   },
   {
@@ -2517,6 +2559,10 @@
   {
     "type": "integer",
     "named": true
+  },
+  {
+    "type": "ref",
+    "named": false
   },
   {
     "type": "string_end",
