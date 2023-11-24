@@ -1154,6 +1154,10 @@
             },
             {
               "type": "SYMBOL",
+              "name": "when_statement"
+            },
+            {
+              "type": "SYMBOL",
               "name": "on_statement"
             },
             {
@@ -1288,6 +1292,31 @@
           "content": {
             "type": "SYMBOL",
             "name": "_expression"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "expression",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_block"
+          }
+        }
+      ]
+    },
+    "when_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "When"
+        },
+        {
+          "type": "FIELD",
+          "name": "trigger",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_name"
           }
         },
         {

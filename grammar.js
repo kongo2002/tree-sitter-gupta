@@ -286,6 +286,7 @@ module.exports = grammar({
         $.if_statement,
         $.else_if_statement,
         $.else_statement,
+        $.when_statement,
         $.on_statement,
         $.loop,
         $.while,
@@ -327,6 +328,12 @@ module.exports = grammar({
     if_statement: $ => seq(
       'If',
       field('condition', $._expression),
+      field('expression', $._block),
+    ),
+
+    when_statement: $ => seq(
+      'When',
+      field('trigger', $.type_name),
       field('expression', $._block),
     ),
 
