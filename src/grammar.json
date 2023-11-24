@@ -1284,6 +1284,14 @@
             "members": [
               {
                 "type": "SYMBOL",
+                "name": "comment"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "multiline_comment"
+              },
+              {
+                "type": "SYMBOL",
                 "name": "select_case"
               },
               {
@@ -1316,18 +1324,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_indent"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_simple_statement"
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_dedent"
+          "name": "_block"
         }
       ]
     },
@@ -1340,18 +1337,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_indent"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_simple_statement"
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_dedent"
+          "name": "_block"
         }
       ]
     },

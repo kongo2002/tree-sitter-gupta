@@ -318,6 +318,8 @@ module.exports = grammar({
       $._indent,
       repeat1(
         choice(
+          $.comment,
+          $.multiline_comment,
           $.select_case,
           $.default_case,
         ),
@@ -328,16 +330,12 @@ module.exports = grammar({
     select_case: $ => seq(
       'Case',
       field('case', $._expression),
-      $._indent,
-      repeat($._simple_statement),
-      $._dedent,
+      $._block,
     ),
 
     default_case: $ => seq(
       'Default',
-      $._indent,
-      repeat($._simple_statement),
-      $._dedent,
+      $._block,
     ),
 
     if_statement: $ => seq(
