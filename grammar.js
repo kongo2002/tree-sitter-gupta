@@ -43,6 +43,10 @@ module.exports = grammar({
     ')',
   ],
 
+  conflicts: $ => [
+    [$._primary_expression, $.ref],
+  ],
+
   inline: $ => [
     $.section_header,
   ],
@@ -164,11 +168,18 @@ module.exports = grammar({
       ')',
     )),
 
+    _block_expression: $ => seq(
+      $._indent,
+      repeat1($._expression),
+      $._dedent,
+    ),
+
     _expression: $ => choice(
       $.not_operator,
       $.boolean_operator,
       $.comparison_operator,
       $._primary_expressions,
+      $._block_expression,
     ),
 
     _primary_expression: $ => choice(
@@ -268,15 +279,19 @@ module.exports = grammar({
       prec.left(PREC.and,
         seq(
           field('left', $._expression),
-          field('operator', 'AND'),
-          field('right', $._expression),
+          maybe_block(seq(
+            field('operator', 'AND'),
+            field('right', $._expression),
+          ), $._indent, $._dedent),
         )
       ),
       prec.left(PREC.or,
         seq(
           field('left', $._expression),
-          field('operator', 'OR'),
-          field('right', $._expression),
+          maybe_block(seq(
+            field('operator', 'OR'),
+            field('right', $._expression),
+          ), $._indent, $._dedent),
         )
       ),
     ),
@@ -489,6 +504,17 @@ module.exports = grammar({
     ),
   }
 });
+
+function maybe_block(rule, indent, dedent) {
+  return choice(
+    rule,
+    seq(
+      indent,
+      rule,
+      dedent,
+    ),
+  );
+}
 
 function commaSep1(rule) {
   return sep1(rule, ',');
