@@ -44,7 +44,7 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$._primary_expression, $.ref],
+    [$._primary_expressions],
   ],
 
   inline: $ => [
@@ -168,18 +168,10 @@ module.exports = grammar({
       ')',
     )),
 
-    _block_expression: $ => seq(
-      $._indent,
-      repeat1($._expression),
-      $._dedent,
-    ),
-
     _expression: $ => choice(
       $.not_operator,
-      $.boolean_operator,
       $.comparison_operator,
       $._primary_expressions,
-      $._block_expression,
     ),
 
     _primary_expression: $ => choice(
@@ -203,17 +195,17 @@ module.exports = grammar({
       $._dedent,
     ),
 
-    _primary_expressions: $ => sep1(
+    _primary_expressions: $ => prec.left(sep1(
       $._primary_expression,
       '||',
-    ),
+    )),
 
-    array_expression: $ => seq(
+    array_expression: $ => prec(PREC.call, seq(
       field('variable', $.identifier),
       '[',
       field('index', $._primary_expression),
       ']',
-    ),
+    )),
 
     call: $ => prec(PREC.call,
       $.function,
@@ -251,6 +243,8 @@ module.exports = grammar({
 
     binary_operator: $ => {
       const table = [
+        [prec.left, 'AND', PREC.and],
+        [prec.left, 'OR', PREC.or],
         [prec.left, '+', PREC.plus],
         [prec.left, '-', PREC.plus],
         [prec.left, '*', PREC.times],
@@ -264,9 +258,9 @@ module.exports = grammar({
       ];
 
       return choice(...table.map(([fn, operator, prec]) => fn(prec, seq(
-        field('left', $._primary_expression),
+        field('left', $._expression),
         field('operator', operator),
-        field('right', $._primary_expression),
+        field('right', $._expression),
       ))));
     },
 
@@ -274,27 +268,6 @@ module.exports = grammar({
       'NOT',
       field('argument', $._expression),
     )),
-
-    boolean_operator: $ => choice(
-      prec.left(PREC.and,
-        seq(
-          field('left', $._expression),
-          maybe_block(seq(
-            field('operator', 'AND'),
-            field('right', $._expression),
-          ), $._indent, $._dedent),
-        )
-      ),
-      prec.left(PREC.or,
-        seq(
-          field('left', $._expression),
-          maybe_block(seq(
-            field('operator', 'OR'),
-            field('right', $._expression),
-          ), $._indent, $._dedent),
-        )
-      ),
-    ),
 
     _simple_statement: $ => seq(
       choice(

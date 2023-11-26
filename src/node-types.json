@@ -106,10 +106,6 @@
           "named": true
         },
         {
-          "type": "boolean_operator",
-          "named": true
-        },
-        {
           "type": "call",
           "named": true
         },
@@ -257,10 +253,6 @@
             "named": true
           },
           {
-            "type": "boolean_operator",
-            "named": true
-          },
-          {
             "type": "call",
             "named": true
           },
@@ -321,166 +313,6 @@
     "named": true,
     "fields": {
       "left": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "array_expression",
-            "named": true
-          },
-          {
-            "type": "binary_operator",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "false",
-            "named": true
-          },
-          {
-            "type": "float",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "integer",
-            "named": true
-          },
-          {
-            "type": "paren_expression",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "true",
-            "named": true
-          },
-          {
-            "type": "type_name",
-            "named": true
-          },
-          {
-            "type": "unary_operator",
-            "named": true
-          }
-        ]
-      },
-      "operator": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "%",
-            "named": false
-          },
-          {
-            "type": "&",
-            "named": false
-          },
-          {
-            "type": "*",
-            "named": false
-          },
-          {
-            "type": "+",
-            "named": false
-          },
-          {
-            "type": "-",
-            "named": false
-          },
-          {
-            "type": "/",
-            "named": false
-          },
-          {
-            "type": "<<",
-            "named": false
-          },
-          {
-            "type": ">>",
-            "named": false
-          },
-          {
-            "type": "^",
-            "named": false
-          },
-          {
-            "type": "|",
-            "named": false
-          }
-        ]
-      },
-      "right": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "array_expression",
-            "named": true
-          },
-          {
-            "type": "binary_operator",
-            "named": true
-          },
-          {
-            "type": "call",
-            "named": true
-          },
-          {
-            "type": "false",
-            "named": true
-          },
-          {
-            "type": "float",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "integer",
-            "named": true
-          },
-          {
-            "type": "paren_expression",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "true",
-            "named": true
-          },
-          {
-            "type": "type_name",
-            "named": true
-          },
-          {
-            "type": "unary_operator",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "boolean_operator",
-    "named": true,
-    "fields": {
-      "left": {
         "multiple": true,
         "required": true,
         "types": [
@@ -490,10 +322,6 @@
           },
           {
             "type": "binary_operator",
-            "named": true
-          },
-          {
-            "type": "boolean_operator",
             "named": true
           },
           {
@@ -555,11 +383,51 @@
         "required": true,
         "types": [
           {
+            "type": "%",
+            "named": false
+          },
+          {
+            "type": "&",
+            "named": false
+          },
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "/",
+            "named": false
+          },
+          {
+            "type": "<<",
+            "named": false
+          },
+          {
+            "type": ">>",
+            "named": false
+          },
+          {
             "type": "AND",
             "named": false
           },
           {
             "type": "OR",
+            "named": false
+          },
+          {
+            "type": "^",
+            "named": false
+          },
+          {
+            "type": "|",
             "named": false
           }
         ]
@@ -574,10 +442,6 @@
           },
           {
             "type": "binary_operator",
-            "named": true
-          },
-          {
-            "type": "boolean_operator",
             "named": true
           },
           {
@@ -861,10 +725,6 @@
             "named": true
           },
           {
-            "type": "boolean_operator",
-            "named": true
-          },
-          {
             "type": "call",
             "named": true
           },
@@ -1108,10 +968,6 @@
             "named": true
           },
           {
-            "type": "boolean_operator",
-            "named": true
-          },
-          {
             "type": "call",
             "named": true
           },
@@ -1329,10 +1185,6 @@
             "named": true
           },
           {
-            "type": "boolean_operator",
-            "named": true
-          },
-          {
             "type": "call",
             "named": true
           },
@@ -1402,10 +1254,6 @@
           },
           {
             "type": "binary_operator",
-            "named": true
-          },
-          {
-            "type": "boolean_operator",
             "named": true
           },
           {
@@ -1532,7 +1380,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "array_expression",
@@ -1540,10 +1388,6 @@
         },
         {
           "type": "binary_operator",
-          "named": true
-        },
-        {
-          "type": "boolean_operator",
           "named": true
         },
         {
@@ -1696,10 +1540,6 @@
         },
         {
           "type": "binary_operator",
-          "named": true
-        },
-        {
-          "type": "boolean_operator",
           "named": true
         },
         {
@@ -1897,10 +1737,6 @@
             "named": true
           },
           {
-            "type": "boolean_operator",
-            "named": true
-          },
-          {
             "type": "call",
             "named": true
           },
@@ -2032,10 +1868,6 @@
           },
           {
             "type": "binary_operator",
-            "named": true
-          },
-          {
-            "type": "boolean_operator",
             "named": true
           },
           {
@@ -2334,10 +2166,6 @@
           },
           {
             "type": "binary_operator",
-            "named": true
-          },
-          {
-            "type": "boolean_operator",
             "named": true
           },
           {
