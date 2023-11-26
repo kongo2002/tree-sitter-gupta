@@ -404,7 +404,7 @@ module.exports = grammar({
       field('right', $._expression),
     ),
 
-    identifier: _ => /[a-zA-Z][_a-zA-Z0-9]*/,
+    identifier: _ => /[_a-zA-Z][_a-zA-Z0-9]*/,
     type_name: _ => /[A-Z][_a-zA-Z0-9]*/,
 
     true: _ => 'TRUE',

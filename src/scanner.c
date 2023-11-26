@@ -213,7 +213,7 @@ bool tree_sitter_gupta_external_scanner_scan(void *payload, TSLexer *lexer,
             // current indent is more than the last one AND ident
             // is a currently valid token -> emit INDENT
             if (valid_symbols[INDENT] &&
-                indent_length > current_indent_length) {
+                indent_length > current_indent_length && !within_brackets) {
                 VEC_PUSH(scanner->indents, indent_length);
                 lexer->result_symbol = INDENT;
                 return true;
