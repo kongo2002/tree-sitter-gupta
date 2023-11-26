@@ -159,7 +159,7 @@ module.exports = grammar({
           'Message Actions',
         ),
       ),
-      $._block,
+      optional($._block),
     ),
 
     paren_expression: $ => prec(PREC.paren_expression, seq(
