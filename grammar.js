@@ -45,6 +45,7 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$._primary_expressions],
+    [$._primary_expression, $.ref],
   ],
 
   inline: $ => [
@@ -186,7 +187,7 @@ module.exports = grammar({
       $.string,
       $.call,
       $.paren_expression,
-      $.array_expression,
+      $.refs,
     ),
 
     _block: $ => seq(
@@ -364,7 +365,10 @@ module.exports = grammar({
     ),
 
     ref: $ => alias(
-      choice($.identifier, $.array_expression),
+      choice(
+        $.identifier,
+        $.array_expression,
+      ),
       'ref'
     ),
 

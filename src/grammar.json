@@ -495,7 +495,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "array_expression"
+          "name": "refs"
         }
       ]
     },
@@ -2141,6 +2141,10 @@
   "conflicts": [
     [
       "_primary_expressions"
+    ],
+    [
+      "_primary_expression",
+      "ref"
     ]
   ],
   "precedences": [],
