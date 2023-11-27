@@ -757,6 +757,39 @@
         },
         {
           "type": "PREC_LEFT",
+          "value": 11,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "left",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "STRING",
+                  "value": "and"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "right",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
           "value": 10,
           "content": {
             "type": "SEQ",
@@ -775,6 +808,39 @@
                 "content": {
                   "type": "STRING",
                   "value": "OR"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "right",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 10,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "left",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "operator",
+                "content": {
+                  "type": "STRING",
+                  "value": "or"
                 }
               },
               {
@@ -1127,8 +1193,17 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "STRING",
-            "value": "NOT"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "NOT"
+              },
+              {
+                "type": "STRING",
+                "value": "not"
+              }
+            ]
           },
           {
             "type": "FIELD",

@@ -245,7 +245,9 @@ module.exports = grammar({
     binary_operator: $ => {
       const table = [
         [prec.left, 'AND', PREC.and],
+        [prec.left, 'and', PREC.and],
         [prec.left, 'OR', PREC.or],
+        [prec.left, 'or', PREC.or],
         [prec.left, '+', PREC.plus],
         [prec.left, '-', PREC.plus],
         [prec.left, '*', PREC.times],
@@ -266,7 +268,7 @@ module.exports = grammar({
     },
 
     not_operator: $ => prec(PREC.not, seq(
-      'NOT',
+      choice('NOT', 'not'),
       field('argument', $._expression),
     )),
 
