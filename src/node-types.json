@@ -345,14 +345,6 @@
             "named": false
           },
           {
-            "type": "AND",
-            "named": false
-          },
-          {
-            "type": "OR",
-            "named": false
-          },
-          {
             "type": "^",
             "named": false
           },
@@ -437,6 +429,11 @@
         ]
       }
     }
+  },
+  {
+    "type": "break",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "call",
@@ -2317,15 +2314,15 @@
     "named": false
   },
   {
-    "type": "AND",
-    "named": false
-  },
-  {
     "type": "Actions",
     "named": false
   },
   {
     "type": "Application Actions",
+    "named": false
+  },
+  {
+    "type": "Break",
     "named": false
   },
   {
@@ -2362,14 +2359,6 @@
   },
   {
     "type": "Message Actions",
-    "named": false
-  },
-  {
-    "type": "NOT",
-    "named": false
-  },
-  {
-    "type": "OR",
     "named": false
   },
   {
@@ -2411,10 +2400,6 @@
   {
     "type": "and",
     "named": false
-  },
-  {
-    "type": "break",
-    "named": true
   },
   {
     "type": "comment",

@@ -244,10 +244,8 @@ module.exports = grammar({
 
     binary_operator: $ => {
       const table = [
-        [prec.left, 'AND', PREC.and],
-        [prec.left, 'and', PREC.and],
-        [prec.left, 'OR', PREC.or],
-        [prec.left, 'or', PREC.or],
+        [prec.left, ignoreCase('and'), PREC.and],
+        [prec.left, ignoreCase('or'), PREC.or],
         [prec.left, '+', PREC.plus],
         [prec.left, '-', PREC.plus],
         [prec.left, '*', PREC.times],
@@ -268,7 +266,7 @@ module.exports = grammar({
     },
 
     not_operator: $ => prec(PREC.not, seq(
-      choice('NOT', 'not'),
+      ignoreCase('not'),
       field('argument', $._expression),
     )),
 
@@ -290,8 +288,8 @@ module.exports = grammar({
     ),
 
     select_case_statement: $ => seq(
-      'Select',
-      'Case',
+      ignoreCase('Select'),
+      ignoreCase('Case'),
       field('selector', $._expression),
       $._indent,
       repeat1(
@@ -306,63 +304,63 @@ module.exports = grammar({
     ),
 
     select_case: $ => seq(
-      'Case',
+      ignoreCase('Case'),
       field('case', $._expression),
       $._block,
     ),
 
     default_case: $ => seq(
-      'Default',
+      ignoreCase('Default'),
       $._block,
     ),
 
     if_statement: $ => seq(
-      'If',
+      ignoreCase('If'),
       field('condition', $._expression),
       field('expression', $._block),
     ),
 
     when_statement: $ => seq(
-      'When',
+      ignoreCase('When'),
       field('trigger', $.type_name),
       field('expression', $._block),
     ),
 
     else_if_statement: $ => seq(
-      'Else', 'If',
+      ignoreCase('Else'), ignoreCase('If'),
       field('condition', $._expression),
       field('expression', $._block),
     ),
 
     on_statement: $ => seq(
-      'On',
+      ignoreCase('On'),
       field('condition', $._expression),
       field('expression', $._block),
     ),
 
     loop: $ => seq(
-      'Loop',
+      ignoreCase('Loop'),
       field('expression', $._block),
     ),
 
     while: $ => seq(
-      'While',
+      ignoreCase('While'),
       field('condition', $._expression),
       field('expression', $._block),
     ),
 
     else_statement: $ => seq(
-      'Else',
+      ignoreCase('Else'),
       field('expression', $._block),
     ),
 
     explicit_call: $ => seq(
-      'Call',
+      ignoreCase('Call'),
       $.call,
     ),
 
     return_statement: $ => seq(
-      'Return',
+      ignoreCase('Return'),
       optional($._expression),
     ),
 
@@ -377,7 +375,7 @@ module.exports = grammar({
     refs: $ => alias(seq($.ref, repeat(seq('.', $.ref))), 'ref'),
 
     assignment: $ => seq(
-      'Set',
+      ignoreCase('Set'),
       field('left', $.refs),
       '=',
       field('right', $._expression),
@@ -389,7 +387,7 @@ module.exports = grammar({
     true: _ => 'TRUE',
     false: _ => 'FALSE',
 
-    break: _ => 'Break',
+    break: _ => ignoreCase('Break'),
 
     string: $ => seq(
       $.string_start,
@@ -484,23 +482,20 @@ module.exports = grammar({
   }
 });
 
-function maybe_block(rule, indent, dedent) {
-  return choice(
-    rule,
-    seq(
-      indent,
-      rule,
-      dedent,
-    ),
-  );
-}
-
 function commaSep1(rule) {
   return sep1(rule, ',');
 }
 
 function sep1(rule, separator) {
   return seq(rule, repeat(seq(separator, rule)));
+}
+
+function ignoreCase(keyword) {
+  return alias(new RegExp(keyword
+    .split('')
+    .map(letter => `[${letter}${letter.toUpperCase()}]`)
+    .join('')
+  ), keyword);
 }
 
 // vim: set et sw=2 sts=2:

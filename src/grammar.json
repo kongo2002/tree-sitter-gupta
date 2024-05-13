@@ -740,40 +740,12 @@
                 "type": "FIELD",
                 "name": "operator",
                 "content": {
-                  "type": "STRING",
-                  "value": "AND"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "right",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "PREC_LEFT",
-          "value": 11,
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "FIELD",
-                "name": "left",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "operator",
-                "content": {
-                  "type": "STRING",
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[aA][nN][dD]"
+                  },
+                  "named": false,
                   "value": "and"
                 }
               },
@@ -806,40 +778,12 @@
                 "type": "FIELD",
                 "name": "operator",
                 "content": {
-                  "type": "STRING",
-                  "value": "OR"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "right",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "PREC_LEFT",
-          "value": 10,
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "FIELD",
-                "name": "left",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "_expression"
-                }
-              },
-              {
-                "type": "FIELD",
-                "name": "operator",
-                "content": {
-                  "type": "STRING",
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[oO][rR]"
+                  },
+                  "named": false,
                   "value": "or"
                 }
               },
@@ -1193,17 +1137,13 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "NOT"
-              },
-              {
-                "type": "STRING",
-                "value": "not"
-              }
-            ]
+            "type": "ALIAS",
+            "content": {
+              "type": "PATTERN",
+              "value": "[nN][oO][tT]"
+            },
+            "named": false,
+            "value": "not"
           },
           {
             "type": "FIELD",
@@ -1278,11 +1218,21 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[SS][eE][lL][eE][cC][tT]"
+          },
+          "named": false,
           "value": "Select"
         },
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[CC][aA][sS][eE]"
+          },
+          "named": false,
           "value": "Case"
         },
         {
@@ -1331,7 +1281,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[CC][aA][sS][eE]"
+          },
+          "named": false,
           "value": "Case"
         },
         {
@@ -1352,7 +1307,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[DD][eE][fF][aA][uU][lL][tT]"
+          },
+          "named": false,
           "value": "Default"
         },
         {
@@ -1365,7 +1325,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[II][fF]"
+          },
+          "named": false,
           "value": "If"
         },
         {
@@ -1390,7 +1355,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[WW][hH][eE][nN]"
+          },
+          "named": false,
           "value": "When"
         },
         {
@@ -1415,11 +1385,21 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[EE][lL][sS][eE]"
+          },
+          "named": false,
           "value": "Else"
         },
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[II][fF]"
+          },
+          "named": false,
           "value": "If"
         },
         {
@@ -1444,7 +1424,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[OO][nN]"
+          },
+          "named": false,
           "value": "On"
         },
         {
@@ -1469,7 +1454,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[LL][oO][oO][pP]"
+          },
+          "named": false,
           "value": "Loop"
         },
         {
@@ -1486,7 +1476,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[WW][hH][iI][lL][eE]"
+          },
+          "named": false,
           "value": "While"
         },
         {
@@ -1511,7 +1506,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[EE][lL][sS][eE]"
+          },
+          "named": false,
           "value": "Else"
         },
         {
@@ -1528,7 +1528,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[CC][aA][lL][lL]"
+          },
+          "named": false,
           "value": "Call"
         },
         {
@@ -1541,7 +1546,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[RR][eE][tT][uU][rR][nN]"
+          },
+          "named": false,
           "value": "Return"
         },
         {
@@ -1610,7 +1620,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[SS][eE][tT]"
+          },
+          "named": false,
           "value": "Set"
         },
         {
@@ -1652,7 +1667,12 @@
       "value": "FALSE"
     },
     "break": {
-      "type": "STRING",
+      "type": "ALIAS",
+      "content": {
+        "type": "PATTERN",
+        "value": "[BB][rR][eE][aA][kK]"
+      },
+      "named": false,
       "value": "Break"
     },
     "string": {
